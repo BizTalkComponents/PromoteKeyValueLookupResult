@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult</id>
-    <version>>$version$</version>
+    <version>$version$</version>
     <authors>Robin Hultman</authors>
     <projectUrl>www.github.com/biztalkcomponents/promotekeyvaluelookupresult</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
