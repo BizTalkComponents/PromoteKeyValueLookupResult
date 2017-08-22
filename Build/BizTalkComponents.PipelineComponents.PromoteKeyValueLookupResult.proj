@@ -1,26 +1,28 @@
 <Project DefaultTargets="GenerateMsi" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\BtsMsiTask\BtsMsiTask.targets" />
-  <PropertyGroup>
-    <DestinationPath>$(BUILD_STAGINGDIRECTORY)</DestinationPath>
-    <ApplicationName>BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult</ApplicationName>
-    <ApplicationDescription></ApplicationDescription>
-    <SolutionName>$(ApplicationName)</SolutionName>
-    <SourceLocation>c:\$(BUILD_BUILDNUMBER)</SourceLocation>
-  </PropertyGroup>
-  <ItemGroup>
-    <Resource Include="$(BUILD_SOURCESDIRECTORY)\Src\bin\$(BuildConfiguration)\BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult.dll" />
-    
- </ItemGroup>
-  <Target Name="GenerateMsi">
-    <MsiTask  ApplicationDescription="$(ApplicationDescription)"
-              Version="1.0.0.0"
-              FileName="Deploy.msi"
-              DestinationPath="$(DestinationPath)"
-              ApplicationName="$(ApplicationName)"
-              BtsAssemblies="@(BtsAssembly)"
-              
-	      Resources="@(Resource)"
-              SourceLocation="$(SourceLocation)"
-              ReferenceApplications="@(ReferenceApplication)" />
+	<Import Project="$(MSBuildExtensionsPath)\BtsMsiTask\BtsMsiTask.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>
+  
+	<PropertyGroup>
+		<DestinationPath>.</DestinationPath>
+		<ApplicationName>BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult</ApplicationName>
+    <Configuration></Configuration>
+	</PropertyGroup>
+	<ItemGroup>
+	
+		<Resource Include="..\Src\PromoteKeyValueLookupResult\bin\debug\BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult.dll" />
+  </ItemGroup>
+  <Target Name="GetVersion">
+    <MSBuild.ExtensionPack.Framework.Assembly TaskAction="GetInfo" NetAssembly="..\Src\PromoteKeyValueLookupResult\bin\debug\BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult.dll">
+      <Output TaskParameter="OutputItems" ItemName="Info"/>
+    </MSBuild.ExtensionPack.Framework.Assembly>
+  </Target>
+
+  <Target Name="GenerateMsi" DependsOnTargets="GetVersion">
+    <MsiTask
+			FileName="BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult%(Info.AssemblyInformationalVersion).msi"
+			DestinationPath="$(DestinationPath)"
+			ApplicationName="$(ApplicationName)"
+			SourceLocation="C:\%(Info.AssemblyInformationalVersion)"
+			Resources="@(Resource)" />
   </Target>
 </Project>
