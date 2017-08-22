@@ -4,7 +4,7 @@
     <id>BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult</id>
     <version>$version$</version>
     <authors>Robin Hultman</authors>
-    <projectUrl>www.github.com/biztalkcomponents/promotekeyvaluelookupresult</projectUrl>
+    <projectUrl>https://github.com/BizTalkComponents/PromoteKeyValyeLookupResult</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Will promote result from a key value store lookup</description>
     <releaseNotes>Initial release.</releaseNotes>
