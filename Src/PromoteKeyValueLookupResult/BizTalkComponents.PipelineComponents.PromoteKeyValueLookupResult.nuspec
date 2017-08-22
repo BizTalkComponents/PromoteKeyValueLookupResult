@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult</id>
+    <version>1.0</version>
+    <authors>Robin Hultman</authors>
+    <projectUrl>www.github.com/biztalkcomponents/promotekeyvaluelookupresult</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Will promote result from a key value store lookup</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>BizTalk</tags>
+  </metadata>
+<files>
+    <file src="\bin\release\BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult.dll" target="lib\net45"/>
+  </files>
+</package>
