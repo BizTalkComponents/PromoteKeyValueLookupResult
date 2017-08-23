@@ -16,6 +16,23 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
     public partial class SharepointPromoteKeyValueLookupResult : IComponent, IBaseComponent,
                                         IPersistPropertyBag, IComponentUI
     {
+        private readonly ILookupRepository _repository = null;
+
+        public SharepointPromoteKeyValueLookupResult()
+        {
+            _repository = new SharepointLookupRepository();
+        }
+
+        public SharepointPromoteKeyValueLookupResult(ILookupRepository repository)
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+
+            _repository = repository;
+        }
+
         private const string SourcePropertyPathPropertyName = "SourcePropertyPath";
         private const string DestinationPropertyPathPropertyName = "DestinationPropertyPath";
         private const string ListNamePropertyName = "ListName";
@@ -61,7 +78,7 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
                 throw new InvalidOperationException("Could not find lookup key in context");
             }
 
-            var util = new LookupUtilityService(new SharepointLookupRepository());
+            var util = new LookupUtilityService(_repository);
 
             var value = util.GetValue(ListName, lookupKey,DefaultValue);
 
