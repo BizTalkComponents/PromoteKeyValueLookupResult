@@ -65,6 +65,11 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
 
             var value = util.GetValue(ListName, lookupKey,DefaultValue);
 
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new InvalidOperationException("Could not find company for bax " + lookupKey);
+            }
+
             pInMsg.Context.Promote(new ContextProperty(DestinationPropertyPath), value);
 
             return pInMsg;
