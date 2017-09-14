@@ -7,7 +7,7 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
 {
     public partial class SharepointPromoteKeyValueLookupResult
     {
-        public string Name { get { return "PromoteKeyValueLookupResult"; } }
+        public string Name { get { return "SharePointPromoteKeyValueLookupResult"; } }
         public string Version { get { return "1.0"; } }
         public string Description { get { return "Will promote result from a key value store lookup"; } }
 
