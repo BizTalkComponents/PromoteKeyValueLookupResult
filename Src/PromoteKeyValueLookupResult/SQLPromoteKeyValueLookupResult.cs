@@ -107,8 +107,9 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
         {
             SourcePropertyPath = PropertyBagHelper.ReadPropertyBag(propertyBag, SourcePropertyPathPropertyName, SourcePropertyPath);
             DestinationPropertyPath = PropertyBagHelper.ReadPropertyBag(propertyBag, DestinationPropertyPathPropertyName, DestinationPropertyPath);
-            TableName = PropertyBagHelper.ReadPropertyBag(propertyBag, TableName, TableName);
+            TableName = PropertyBagHelper.ReadPropertyBag(propertyBag, TableNamePropertyName, TableName);
             DefaultValue = PropertyBagHelper.ReadPropertyBag(propertyBag, DefaultValuePropertyName, DefaultValue);
+            ThrowIfNotExists = PropertyBagHelper.ReadPropertyBag(propertyBag, ThrowIfNotExistsPropertyName, ThrowIfNotExists);
 
         }
 
