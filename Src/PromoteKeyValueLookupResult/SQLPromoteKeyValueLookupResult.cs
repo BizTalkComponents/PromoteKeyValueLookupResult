@@ -38,6 +38,7 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
         private const string DestinationPropertyPathPropertyName = "DestinationPropertyPath";
         private const string TableNamePropertyName = "TableName";
         private const string DefaultValuePropertyName = "DefaultValue";
+        private const string ThrowIfNotExistsPropertyName = "ThrowIfNotExists";
 
         [DisplayName("Source Property Path")]
         [Description("The path to the property used as lookup key.")]
@@ -62,6 +63,11 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
         [Description("Default value to use if no match.")]
         public string DefaultValue { get; set; }
 
+        [DisplayName("ThrowIfNotExists")]
+        [Description("Throw exception of key is not found in db.")]
+        [RequiredRuntime]
+        public bool ThrowIfNotExists { get; set; }
+
         public IBaseMessage Execute(IPipelineContext pContext, IBaseMessage pInMsg)
         {
             string errorMessage;
@@ -82,9 +88,14 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
 
             var value = util.GetValue(TableName, lookupKey, DefaultValue);
 
-            if (string.IsNullOrEmpty(value))
+            if (ThrowIfNotExists && string.IsNullOrEmpty(value))
             {
                 throw new InvalidOperationException("Could not find value for key " + lookupKey);
+            }
+
+            if (!ThrowIfNotExists && string.IsNullOrEmpty(value))
+            {
+                return pInMsg;
             }
 
             pInMsg.Context.Promote(new ContextProperty(DestinationPropertyPath), value);
@@ -107,7 +118,7 @@ namespace BizTalkComponents.PipelineComponents.PromoteKeyValueLookupResult
             PropertyBagHelper.WritePropertyBag(propertyBag, DestinationPropertyPathPropertyName, DestinationPropertyPath);
             PropertyBagHelper.WritePropertyBag(propertyBag, TableNamePropertyName, TableName);
             PropertyBagHelper.WritePropertyBag(propertyBag, DefaultValuePropertyName, DefaultValue);
-
+            PropertyBagHelper.WritePropertyBag(propertyBag, ThrowIfNotExistsPropertyName, ThrowIfNotExists);
         }
     }
 }
